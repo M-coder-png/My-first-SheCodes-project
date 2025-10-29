@@ -1,12 +1,10 @@
 function displayTemperature(response) {
-  console.log(response.data.condition.description);
+  let cityElement = document.querySelector("#current-city");
+  cityElement.innerHTML = response.data.city;
 
   let temperatureElement = document.querySelector("#current-temperature");
   let temperature = Math.round(response.data.temperature.current);
   temperatureElement.innerHTML = temperature;
-
-  let cityElement = document.querySelector("#current-city");
-  cityElement.innerHTML = response.data.city;
 
   let descriptionElement = document.querySelector("#description");
   descriptionElement.innerHTML = response.data.condition.description;
@@ -17,9 +15,12 @@ function displayTemperature(response) {
 
   let humidityElement = document.querySelector("#humidity");
   let windSpeedElement = document.querySelector("#wind-speed");
-
   humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
   windSpeedElement.innerHTML = `${response.data.wind.speed} km/h`;
+
+  let iconElement = document.querySelector("#icon");
+  let iconUrl = response.data.condition.icon_url;
+  iconElement.innerHTML = `<img src="${iconUrl}" alt="Weather icon" class="current-temperature-icon" />`;
 }
 
 function search(event) {
@@ -36,8 +37,6 @@ function search(event) {
 function formatDate(date) {
   let minutes = date.getMinutes();
   let hours = date.getHours();
-  let day = date.getDay();
-
   if (minutes < 10) minutes = `0${minutes}`;
   if (hours < 10) hours = `0${hours}`;
 
@@ -50,8 +49,7 @@ function formatDate(date) {
     "Friday",
     "Saturday",
   ];
-
-  let formattedDay = days[day];
+  let formattedDay = days[date.getDay()];
   return `${formattedDay} ${hours}:${minutes}`;
 }
 
@@ -61,3 +59,10 @@ searchForm.addEventListener("submit", search);
 let currentDateElement = document.querySelector("#current-date");
 let currentDate = new Date();
 currentDateElement.innerHTML = formatDate(currentDate);
+function loadDefaultCity() {
+  let apiKey = "b2a5adcct04b33178913oc335f405433";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Johannesburg&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayTemperature);
+}
+
+loadDefaultCity();
