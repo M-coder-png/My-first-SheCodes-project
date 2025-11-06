@@ -83,14 +83,13 @@ main {
 }
 
 .current-temperature-icon img {
-  width: 88px;
-  height: 88px;
-  vertical-align: middle;
+  width: 65px;
+  height: 65px;
   object-fit: contain;
-  display: inline-block;
-  position: relative;
-
-  top: 10px;
+  vertical-align: middle;
+  margin-right: 8px;
+  top: 0;
+  position: static;
 }
 
 .current-temperature-value {
