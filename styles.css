@@ -1,5 +1,5 @@
 body {
-  background: #f9f7fe;
+  background: #b9b5c3;
   font-family: "Roboto", sans-serif;
 }
 
@@ -106,12 +106,22 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: 25px;
   margin-top: 30px;
 }
 .weather-forecast-day {
   width: 70px;
   text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.weather-forecast-day:hoover {
+  transform: translateY(-5px);
 }
 
 .weather-forecast-date {
