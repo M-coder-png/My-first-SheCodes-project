@@ -21,6 +21,8 @@ function displayTemperature(response) {
   let iconElement = document.querySelector("#icon");
   let iconUrl = response.data.condition.icon_url;
   iconElement.innerHTML = `<img src="${iconUrl}" alt="Weather icon" class="current-temperature-icon" />`;
+
+  getForecast(response.data.city);
 }
 
 function search(event) {
@@ -66,7 +68,18 @@ function loadDefaultCity() {
 }
 
 loadDefaultCity();
-function displayForecast() {
+
+function getForecast(city) {
+  let apiKey = "d452da0fe2cb4btd0a16e31f1oe44d2f";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecast);
+}
+
+function displayForecast(response) {
+  console.log(response.data);
+
   let days = ["Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
   let forecastHtml = "";
   days.forEach(function (day) {
@@ -88,6 +101,3 @@ function displayForecast() {
   let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML = forecastHtml;
 }
-
-loadDefaultCity("Johannesburg");
-displayForecast();
